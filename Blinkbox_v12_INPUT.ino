@@ -1,9 +1,13 @@
+#include <SPI.h>
+#include <SD.h>
 #include <Wire.h>
+#include <HardwareSerial.cpp>
 
 class UltrasonicSensor
 {
   public:
     uint16_t getDistance();
+    
     UltrasonicSensor();
     void begin( uint8_t trigPin, uint8_t echoPin );
     ~UltrasonicSensor();
@@ -63,6 +67,7 @@ class DistanceSensorObject
 {
   public:
     UltrasonicSensor frontSensor;
+    
     DistanceSensorObject();
     void begin();
     ~DistanceSensorObject();
@@ -73,7 +78,7 @@ class DistanceSensorObject
 
 DistanceSensorObject::DistanceSensorObject()
 {
-  _destroyed = false;
+  _destroyed = true;
 }
 
 void DistanceSensorObject::begin()
@@ -412,6 +417,236 @@ void SensorObjects::end()
 {
   _destroyed = true;
 }
+
+
+
+//########################## COMMUNICATION MODULE ##############################
+
+class IntraSystemCallsObject
+{
+  public:
+    IntraSystemCallsObject();
+    
+    void begin();
+    ~IntraSystemCallsObject();
+    void end();
+  private:
+    bool _destroyed;
+};
+
+IntraSystemCallsObject::IntraSystemCallsObject()
+{
+  _destroyed = true;
+}
+
+void IntraSystemCallsObject::begin()
+{
+  _destroyed = false;
+}
+
+IntraSystemCallsObject::~IntraSystemCallsObject()
+{
+  _destroyed = true;
+}
+
+void IntraSystemCallsObject::end()
+{
+  _destroyed = true;
+}
+
+
+class FileExplorerObject
+{
+  public:
+    SDClass drive;
+    File openRoot()
+    {
+      return drive.open("/");
+    }
+
+    void getDir(char* name, char* buffer)
+    {
+      File dir = openRoot();
+      while(1)
+      {
+        File entry = dir.openNextFile();
+        strcat(buffer, "/");
+        if(!entry)
+        {
+          strcat(buffer, entry.name());
+          return;
+        }
+        else if( strcmp(entry.name(), name) )
+        {
+          strcat(buffer, entry.name());
+          return;
+        }
+        else if( entry.isDirectory() )
+        {
+          dir = search(entry, name);
+          if( strcmp( dir.name(), name ) )
+          {
+            strcat(buffer, dir.name());
+            return;
+          }
+        }
+      }
+    }
+
+    File search(File dir, char* name)
+    {
+      while(1)
+      {
+        File entry = dir.openNextFile();
+        if(!entry)
+        {
+          return entry;
+        }
+        else if( strcmp(entry.name(), name) )
+        {
+          return entry;
+        }
+        else if( entry.isDirectory() )
+        {
+          dir = search(entry, name);
+          if( strcmp( dir.name(), name ) )
+          {
+            return dir;
+          }
+        }
+      }
+    }
+    FileExplorerObject();
+    void begin();
+    ~FileExplorerObject();
+    void end();
+  private:
+    bool _destroyed;
+    SdVolume volume;
+    SdFile root;
+};
+FileExplorerObject::FileExplorerObject()
+{
+  _destroyed = true;
+}
+
+void FileExplorerObject::begin()
+{
+  _destroyed = false;
+}
+
+FileExplorerObject::~FileExplorerObject()
+{
+  _destroyed = true;
+}
+
+void FileExplorerObject::end()
+{
+  _destroyed = true;
+}
+
+HardwareSerial Serial(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0);
+
+class UserInterfaceObject
+{
+  public:
+    char* input( char* prompt, long timeout )
+    {
+      Serial.print(prompt);
+      long startTime = millis();
+      while(!Serial.available() && millis()-startTime < timeout){}//wait for response
+      char buffer[Serial.available()];
+      
+      for (uint8_t i=0; i<Serial.available(); i++)
+      {
+        buffer[i] = Serial.read();
+      }
+      return buffer;
+    }
+    
+    float inputFloat( char* prompt, long timeout )
+    {
+      Serial.print(prompt);
+      long startTime = millis();
+      while(!Serial.available() && millis()-startTime < timeout)//wait for response
+      return Serial.parseFloat();
+    }
+    
+    int inputInt( char* prompt, long timeout )
+    {
+      Serial.print(prompt);
+      long startTime = millis();
+      while(!Serial.available() && millis()-startTime < timeout)//wait for response
+      return Serial.parseInt();
+    }
+    UserInterfaceObject();
+    void begin( uint16_t baudrate );
+    ~UserInterfaceObject();
+    void end();
+  private:
+    bool _destroyed;
+};
+
+UserInterfaceObject::UserInterfaceObject()
+{
+  _destroyed = true;
+}
+
+void UserInterfaceObject::begin( uint16_t baudrate )
+{
+  Serial.begin(baudrate);
+  _destroyed = false;
+}
+
+UserInterfaceObject::~UserInterfaceObject()
+{
+  Serial.end();
+  _destroyed = true;
+}
+
+void UserInterfaceObject::end()
+{
+  Serial.end();
+  _destroyed = true;
+}
+
+
+
+class CommunicationModule
+{
+  public:
+    IntraSystemCallsObject IntraSystemCalls;
+    UserInterfaceObject Ui;
+    FileExplorerObject FileExplorer;
+    
+    CommunicationModule();
+    void begin();
+    ~CommunicationModule();
+    void end();
+  private:
+    bool _destroyed;
+};
+
+CommunicationModule::CommunicationModule()
+{
+  _destroyed = true;
+}
+
+void CommunicationModule::begin()
+{
+  _destroyed = false;
+}
+
+CommunicationModule::~CommunicationModule()
+{
+  _destroyed = true;
+}
+
+void CommunicationModule::end()
+{
+  _destroyed = true;
+}
+
 
 void setup()
 {
