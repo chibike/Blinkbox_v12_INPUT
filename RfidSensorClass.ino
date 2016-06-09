@@ -1,9 +1,6 @@
 RfidSensorObject::RfidSensorObject()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching RFID Sensor"));
-  #endif
-  
+  delay(100);
   _destroyed = true;
 }
 
@@ -14,7 +11,7 @@ void RfidSensorObject::begin( uint8_t cardDetectPin )
   pinMode(_cardDetectPin, INPUT_PULLUP);
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched Rfid Sensor"));
   #endif
   
   _destroyed = false;

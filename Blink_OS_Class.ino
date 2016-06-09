@@ -1,20 +1,22 @@
 Blink_OS::Blink_OS()
 {
   _destroyed = true;
+  delay(100);
 }
   
 void Blink_OS::begin()
 {
-  //Sensors.begin();
-  //Sensors.DistanceSensor.begin();
-  //Sensors.DistanceSensor.frontSensor.begin( 2, 3 );//uint8_t trigPin, uint8_t echoPin
-  //Sensors.RfidSensor.begin( 5 ); //cardDetectPin
-  //#ifdef ALLOW_ACCESS_2_COMPASS
-  //Sensors.CompassSensor.begin();
-  //#endif
+  Sensors.begin();
+  Sensors.DistanceSensor.begin();
+  Sensors.DistanceSensor.frontSensor.begin( A0, 3 );//uint8_t trigPin, uint8_t echoPin
+  Sensors.RfidSensor.begin( 7 ); //cardDetectPin
+  
+#ifdef ALLOW_ACCESS_2_COMPASS
+  Sensors.CompassSensor.begin();
+#endif
   
   IntraSystemCalls.begin();
-  FileExplorer.begin( 4 );
+  FileExplorer.begin( 10 );
   
   #ifdef PRINT_STATUS
   Serial.println(F("Blinkbox OS v12 [Version 0.1]"));
@@ -31,7 +33,7 @@ Blink_OS::~Blink_OS()
 
 void Blink_OS::end()
 {
-  //Sensors.end();
+  Sensors.end();
   IntraSystemCalls.end();
   Ui.end();
   FileExplorer.end();

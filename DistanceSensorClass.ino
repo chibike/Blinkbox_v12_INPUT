@@ -1,16 +1,13 @@
 DistanceSensorObject::DistanceSensorObject()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching Distance Sensor..."));
-  #endif
-  
+  delay(100);
   _destroyed = true;
 }
 
 void DistanceSensorObject::begin()
 {
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched Distance Sensor"));
   #endif
   
   _destroyed = false;

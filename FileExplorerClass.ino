@@ -1,8 +1,6 @@
 FileExplorerObject::FileExplorerObject()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching File Explorer...."));
-  #endif
+  delay(100);
   _destroyed = true;
 }
 

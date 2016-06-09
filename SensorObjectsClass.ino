@@ -1,9 +1,6 @@
 SensorObjects::SensorObjects()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching Sensor Objects....."));
-  #endif
-  
+  delay(100);
   _destroyed = true;
 }
 
@@ -12,7 +9,7 @@ void SensorObjects::begin()
   _destroyed = false;
   
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched Sensor Objects"));
   #endif
 }
 

@@ -1,5 +1,33 @@
 #ifdef ALLOW_ACCESS_2_COMPASS
 
+CompassSensorObject::CompassSensorObject()
+{
+  delay(100);
+  _destroyed = true;
+}
+
+void CompassSensorObject::begin()
+{
+  _address = 0x60;
+  _targetHeading = 0;
+
+  #ifdef PRINT_STATUS
+  Serial.println(F("Launched Compass Sensor"));
+  #endif
+  
+  _destroyed = false;
+}
+
+CompassSensorObject::~CompassSensorObject()
+{
+  end();
+}
+
+void CompassSensorObject::end()
+{
+  _destroyed = true;
+}
+
 void CompassSensorObject::_i2c_wait_timeout( int timeout)
 {
   long startTime = millis();
@@ -68,37 +96,6 @@ void CompassSensorObject::setTargetHeading(int heading)
       }
   }
   _targetHeading = heading;
-}
-
-CompassSensorObject::CompassSensorObject()
-{
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching Compass Sensor Object..."));
-  #endif
-  
-  _destroyed = true;
-}
-
-void CompassSensorObject::begin()
-{
-  _address = 0x60;
-  _targetHeading = 0;
-
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
-  #endif
-  
-  _destroyed = false;
-}
-
-CompassSensorObject::~CompassSensorObject()
-{
-  end();
-}
-
-void CompassSensorObject::end()
-{
-  _destroyed = true;
 }
 
 #endif

@@ -1,8 +1,6 @@
 UltrasonicSensor::UltrasonicSensor()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching Ultrasonic Sensor...."));
-  #endif
+  delay(100);
   _destroyed = true;
 }
 
@@ -13,7 +11,7 @@ void UltrasonicSensor::begin( uint8_t trigPin, uint8_t echoPin )
   pinMode(_echoPin, OUTPUT);
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched Ultrasonic Sensor"));
   #endif
   
   _destroyed = false;

@@ -216,7 +216,7 @@ class UserInterfaceObject
       return Serial.parseInt();
     }
     UserInterfaceObject();
-    void begin( uint16_t baudrate );
+    void begin();
     ~UserInterfaceObject();
     void end();
   private:
@@ -258,7 +258,9 @@ void shutdown()
 {
   while(1)
   {
-    //pass
+    #ifdef PRINT_STATUS
+    Serial.println("Shutdown");
+    #endif
   }
 }
 

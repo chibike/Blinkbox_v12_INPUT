@@ -1,17 +1,13 @@
 UserInterfaceObject::UserInterfaceObject()
 {
-  begin(9600);
+  delay(100);
+  _destroyed = true;
 }
 
-void UserInterfaceObject::begin( uint16_t baudrate )
+void UserInterfaceObject::begin()
 {
-  Serial.begin(baudrate);
   #ifdef PRINT_STATUS
-  Serial.println(F("Launching User Interface...."));
-  #endif
-  
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched User Interface"));
   #endif
   _destroyed = false;
 }

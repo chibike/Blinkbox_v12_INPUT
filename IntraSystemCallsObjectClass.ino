@@ -1,8 +1,6 @@
 IntraSystemCallsObject::IntraSystemCallsObject()
 {
-  #ifdef PRINT_STATUS
-  Serial.println(F("Launching Intra Sys Calls...."));
-  #endif
+  delay(100);
   _destroyed = true;
 }
 
@@ -11,7 +9,7 @@ void IntraSystemCallsObject::begin()
   _destroyed = false;
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched"));
+  Serial.println(F("Launched Intra Sys Calls"));
   #endif
 }
 
