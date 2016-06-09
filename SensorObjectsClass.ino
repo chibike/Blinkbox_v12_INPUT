@@ -1,4 +1,4 @@
-SensorObjects::SensorObjects()
+SensorObjects::SensorObjects( void )
 {
   delay(100);
   _destroyed = true;
@@ -9,13 +9,8 @@ void SensorObjects::begin()
   _destroyed = false;
   
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched Sensor Objects"));
+  Serial.println("Launched Sensor Objects");
   #endif
-}
-
-SensorObjects::~SensorObjects()
-{
-  end();
 }
 
 void SensorObjects::end()
@@ -29,4 +24,3 @@ void SensorObjects::end()
   
   _destroyed = true;
 }
-

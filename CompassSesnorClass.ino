@@ -1,6 +1,6 @@
 #ifdef ALLOW_ACCESS_2_COMPASS
 
-CompassSensorObject::CompassSensorObject()
+CompassSensorObject::CompassSensorObject( void )
 {
   delay(100);
   _destroyed = true;
@@ -12,15 +12,10 @@ void CompassSensorObject::begin()
   _targetHeading = 0;
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched Compass Sensor"));
+  Serial.println("Launched Compass Sensor");
   #endif
   
   _destroyed = false;
-}
-
-CompassSensorObject::~CompassSensorObject()
-{
-  end();
 }
 
 void CompassSensorObject::end()

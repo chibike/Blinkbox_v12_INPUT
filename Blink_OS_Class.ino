@@ -1,10 +1,10 @@
-Blink_OS::Blink_OS()
+Blink_OS::Blink_OS( void )
 {
   _destroyed = true;
   delay(100);
 }
   
-void Blink_OS::begin()
+void Blink_OS::begin( void )
 {
   Sensors.begin();
   Sensors.DistanceSensor.begin();
@@ -19,19 +19,14 @@ void Blink_OS::begin()
   FileExplorer.begin( 10 );
   
   #ifdef PRINT_STATUS
-  Serial.println(F("Blinkbox OS v12 [Version 0.1]"));
-  Serial.println(F("(c) 2015 Blink Corporation. All rights reserved."));
+  Serial.println("Blinkbox OS v12 [Version 0.1]");
+  Serial.println("(c) 2015 Blink Corporation. All rights reserved.");
   #endif
   
   _destroyed = false;
 }
 
-Blink_OS::~Blink_OS()
-{
-  end();
-}
-
-void Blink_OS::end()
+void Blink_OS::end( void )
 {
   Sensors.end();
   IntraSystemCalls.end();
@@ -40,4 +35,3 @@ void Blink_OS::end()
   _destroyed = true;
   shutdown();
 }
-

@@ -1,4 +1,4 @@
-FileExplorerObject::FileExplorerObject()
+FileExplorerObject::FileExplorerObject( void )
 {
   delay(100);
   _destroyed = true;
@@ -9,14 +9,14 @@ void FileExplorerObject::begin( uint8_t chipSelect )
   if(SD.begin( chipSelect ))
   {
     #ifdef PRINT_STATUS
-    Serial.println(F("Opening \"/SysFiles.txt\"..."));
+    Serial.println("Opening \"/SysFiles.txt\"...");
     #endif
     File sysDir = SD.open("/SysFiles.txt", FILE_READ);
     if(sysDir)
     {
       #ifdef PRINT_STATUS
-      Serial.println(F("Opened"));
-      Serial.println(F("Loading SysFiles..."));
+      Serial.println("Opened");
+      Serial.println("Loading SysFiles...");
       #endif
       while(sysDir.available())
       {
@@ -43,11 +43,6 @@ void FileExplorerObject::begin( uint8_t chipSelect )
     #endif
   }
   _destroyed = false;
-}
-
-FileExplorerObject::~FileExplorerObject()
-{
-  end();
 }
 
 void FileExplorerObject::end()

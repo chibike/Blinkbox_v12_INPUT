@@ -1,4 +1,4 @@
-DistanceSensorObject::DistanceSensorObject()
+DistanceSensorObject::DistanceSensorObject( void )
 {
   delay(100);
   _destroyed = true;
@@ -7,15 +7,10 @@ DistanceSensorObject::DistanceSensorObject()
 void DistanceSensorObject::begin()
 {
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched Distance Sensor"));
+  Serial.println("Launched Distance Sensor");
   #endif
   
   _destroyed = false;
-}
-
-DistanceSensorObject::~DistanceSensorObject()
-{
-  end();
 }
 
 void DistanceSensorObject::end()
@@ -23,4 +18,3 @@ void DistanceSensorObject::end()
   frontSensor.end();
   _destroyed = true;
 }
-

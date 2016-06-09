@@ -1,4 +1,4 @@
-UltrasonicSensor::UltrasonicSensor()
+UltrasonicSensor::UltrasonicSensor( void )
 {
   delay(100);
   _destroyed = true;
@@ -11,15 +11,10 @@ void UltrasonicSensor::begin( uint8_t trigPin, uint8_t echoPin )
   pinMode(_echoPin, OUTPUT);
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched Ultrasonic Sensor"));
+  Serial.println("Launched Ultrasonic Sensor");
   #endif
   
   _destroyed = false;
-}
-
-UltrasonicSensor::~UltrasonicSensor()
-{
-  end();
 }
 
 void UltrasonicSensor::end()
@@ -46,4 +41,3 @@ float UltrasonicSensor::_microseconds2mm( float duration )
 {// sound_speed = 2.94117647 um/mm
   return duration/2.94117647;
 }
-

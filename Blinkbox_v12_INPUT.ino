@@ -7,11 +7,9 @@
 class UltrasonicSensor
 {
   public:
-    uint16_t getDistance();
-    
     UltrasonicSensor();
+    uint16_t getDistance();
     void begin( uint8_t trigPin, uint8_t echoPin );
-    ~UltrasonicSensor();
     void end();
   private:
     bool _destroyed;
@@ -20,6 +18,7 @@ class UltrasonicSensor
     float _microseconds2mm( float duration );
 };
 
+
 class DistanceSensorObject
 {
   public:
@@ -27,7 +26,6 @@ class DistanceSensorObject
     
     DistanceSensorObject();
     void begin();
-    ~DistanceSensorObject();
     void end();
   private:
     bool _destroyed;
@@ -48,7 +46,6 @@ class RfidSensorObject
     
     RfidSensorObject();
     void begin( uint8_t cardDetectPin );
-    ~RfidSensorObject();
     void end();
   private:
     bool _destroyed;
@@ -71,7 +68,6 @@ class CompassSensorObject
     
     CompassSensorObject();
     void begin();
-    ~CompassSensorObject();
     void end();
   private:
     bool _destroyed;
@@ -90,7 +86,6 @@ class SensorObjects
 
     SensorObjects();
     void begin();
-    ~SensorObjects();
     void end();
 #ifdef ALLOW_ACCESS_2_COMPASS
     CompassSensorObject CompassSensor;
@@ -105,7 +100,6 @@ class IntraSystemCallsObject
   
     IntraSystemCallsObject();
     void begin();
-    ~IntraSystemCallsObject();
     void end();
   private:
     bool _destroyed;
@@ -175,7 +169,6 @@ class FileExplorerObject
     }
     FileExplorerObject();
     void begin( uint8_t chipSelectPin );
-    ~FileExplorerObject();
     void end();
   private:
     bool _destroyed;
@@ -217,7 +210,6 @@ class UserInterfaceObject
     }
     UserInterfaceObject();
     void begin();
-    ~UserInterfaceObject();
     void end();
   private:
     bool _destroyed;
@@ -233,37 +225,8 @@ class Blink_OS
     
     Blink_OS();
     void begin();
-    ~Blink_OS();
     void end();
   private:
     boolean _destroyed;
 };
-
-void REQUEST_EVENT()
-{
-  //pass
-}
-
-void RECEIVE_EVENT()
-{
-  //pass
-}
-
-//ISR(TIMER2_COMPA_vect)
-//{
-//  //pass
-//}
-
-void shutdown()
-{
-  while(1)
-  {
-    #ifdef PRINT_STATUS
-    Serial.println("Shutdown");
-    #endif
-  }
-}
-
-
-
 

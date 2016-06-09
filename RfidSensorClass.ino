@@ -1,4 +1,4 @@
-RfidSensorObject::RfidSensorObject()
+RfidSensorObject::RfidSensorObject( void )
 {
   delay(100);
   _destroyed = true;
@@ -11,16 +11,10 @@ void RfidSensorObject::begin( uint8_t cardDetectPin )
   pinMode(_cardDetectPin, INPUT_PULLUP);
 
   #ifdef PRINT_STATUS
-  Serial.println(F("Launched Rfid Sensor"));
+  Serial.println("Launched Rfid Sensor");
   #endif
   
   _destroyed = false;
-}
-
-RfidSensorObject::~RfidSensorObject()
-{
-
-  end();
 }
 
 void RfidSensorObject::end()
@@ -152,4 +146,3 @@ bool RfidSensorObject::_loadTag( char* buffer )
   _errorCode = WIRE_NOT_AVAILABLE;
   return false;
 }
-
