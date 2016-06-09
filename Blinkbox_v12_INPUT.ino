@@ -179,18 +179,50 @@ class FileExplorerObject
 class UserInterfaceObject
 {
   public:
-    char* input( char* prompt, long timeout )
+    bool verifyUser( char* ssid, char* key )
+    {
+      Serial.println("Enter Username>");
+      while( !Serial.available() ){}
+      if(String(ssid) != Serial.readString())
+      {
+        return false;
+      }
+      else
+      {
+        Serial.println("Enter Password>");
+        while( !Serial.available() ){}
+        if(String(key) == Serial.readString())
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+    void input( char* buffer, uint8_t n, char* prompt )
+    {
+      Serial.print(prompt);
+      while( !Serial.available() ){}//wait for response
+      
+      for (uint8_t i=0; i<Serial.available(); i++)
+      {
+        if(i >= n){Serial.flush();return;}
+        buffer[i] = Serial.read();
+      }
+    }
+    void input( char* buffer, uint8_t n, char* prompt, long timeout )
     {
       Serial.print(prompt);
       long startTime = millis();
       while(!Serial.available() && millis()-startTime < timeout){}//wait for response
-      char buffer[Serial.available()];
       
       for (uint8_t i=0; i<Serial.available(); i++)
       {
+        if(i >= n){Serial.flush();return;}
         buffer[i] = Serial.read();
       }
-      return buffer;
     }
     
     float inputFloat( char* prompt, long timeout )

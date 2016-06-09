@@ -19,8 +19,8 @@ void Blink_OS::begin( void )
   FileExplorer.begin( 10 );
   
   #ifdef PRINT_STATUS
-  Serial.println("Blinkbox OS v12 [Version 0.1]");
-  Serial.println("(c) 2015 Blink Corporation. All rights reserved.");
+  Serial.println(F("Blinkbox OS v12 [Version 0.1]"));
+  Serial.println(F("(c) 2015 Blink Corporation. All rights reserved."));
   #endif
   
   _destroyed = false;

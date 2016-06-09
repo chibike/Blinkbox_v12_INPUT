@@ -1,19 +1,15 @@
-void setup()
-{
-}
-
 void loop()
 {
   Serial.begin(9600);
   Blink_OS Blink_OS_v12;
   Blink_OS_v12.begin();
+  while( !Blink_OS_v12.Ui.verifyUser("pi", "raspberry") ){}
+  Serial.println(F("pi@root/>"));
   while(1)
   {
-    Serial.println("In Loop");
-    delay(1000); 
+    //pass
   }
 }
-
 
 void REQUEST_EVENT()
 {
@@ -38,4 +34,8 @@ void shutdown()
     Serial.println("Shutdown");
     #endif
   }
+}
+
+void setup()
+{
 }
