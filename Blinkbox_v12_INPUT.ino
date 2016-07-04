@@ -4,6 +4,55 @@
 
 #define PRINT_STATUS
 
+#define isBoolean 0
+#define isFloat   1
+#define isDouble  2
+#define isUi8     3
+#define isUi16    4
+#define isI8      5
+#define isI16     6
+
+#define STOP_CMD    0x00
+#define FWD         0x01
+#define FWD_DIST    0x02
+#define BWD         0x03
+#define BWD_DIST    0x04
+#define STB         0x05
+#define ST_HD       0x06
+#define ST_PWR      0x08
+#define LT_IND      0x09
+#define RT_IND      0x10
+#define FL_AL       0x11
+#define HDL         0x12
+#define FL_HDL      0x13
+#define FL_HRN      0x14
+#define PAUSE       0x15
+#define PLAY        0x16
+#define FOLLOW_LINE 0x17
+#define TRN_FWD     0x20
+#define TRN_BWD     0x21
+#define AVD_OBS     0x23
+#define NONE_CMD    0x50
+
+typedef union
+{
+    bool _b;
+    float _f;
+    double _d;
+    uint8_t _ui8;
+    uint16_t _ui16;
+    int8_t _i8;
+    int16_t _i16;
+} Data;
+
+typedef struct
+{
+    uint8_t datatype;
+    Data data;
+} multivariate;
+
+
+
 class UltrasonicSensor
 {
   public:
@@ -97,12 +146,14 @@ class SensorObjects
 class IntraSystemCallsObject
 {
   public:
-  
+    void sendCommand( uint8_t command, multivariate *variables, uint16_t var_len );
+    
     IntraSystemCallsObject();
     void begin();
     void end();
   private:
     bool _destroyed;
+    byte _address;
 };
 
 

@@ -6,6 +6,8 @@ FileExplorerObject::FileExplorerObject( void )
 
 void FileExplorerObject::begin( uint8_t chipSelect )
 {
+  pinMode(chipSelect, OUTPUT);
+  digitalWrite(chipSelect, HIGH);
   if(SD.begin( chipSelect ))
   {
     #ifdef PRINT_STATUS
